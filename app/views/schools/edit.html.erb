@@ -1,0 +1,12 @@
+<%= form_tag("/schools/#{@school.id}", method: :put )do  %>
+  <%= label_tag "uid" %>
+  <%= text_field_tag "school[uid]", @school.uid %>
+  <%= label_tag "overweight_percentage" %>
+  <%= text_field_tag "school[overweight_percentage]", @school.overweight_percentage %>
+  <%= label_tag "obese_percentage" %>
+  <%= text_field_tag "school[obese_percentage]", @school.obese_percentage %>
+  <%#= label_tag "county_id" %>
+  <%#= text_field_tag "school[county_id]" %>
+
+  <%= submit_tag "Update" %>
+  <% end %>

@@ -1,0 +1,12 @@
+<h1>Schools</h1>
+
+<% @schools.each do |school| %>
+
+  <ol>
+  <li> ID: <%= school.id  %></li>
+  <li> UID: <%= school.uid  %></li>
+  <li> overweight_percentage:<%= school.overweight_percentage  %></li>
+  <li> obese_percentage:<%= school.obese_percentage  %></li>
+  <li><%= link_to "destroy", school_path(school.id), method: :delete %></li>
+</ol>
+<% end %>
