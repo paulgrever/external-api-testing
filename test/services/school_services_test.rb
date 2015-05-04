@@ -37,14 +37,24 @@ class SchoolistServiceTest < ActiveSupport::TestCase
       assert_equal '1', school['uid']
       assert_equal '1.0', school['overweight_percentage']
       assert_equal '1.0', school['obese_percentage']
-
-    
       service.destroy_school(school['uid'])
     end
   end
 
+  test '#update_school' do 
+    VCR.use_cassette("schoolist_service_update_school") do 
+      original_params = { school: {uid: "1", overweight_percentage: "1", obese_percentage: "1"}}
+      original_school = service.create_school(original_params)
+      updated_params = { school: {uid: "2", overweight_percentage: "2", obese_percentage: "2"}}
+      service.update_school(original_school['id'], updated_params)
+      updated_school = service.school(original_school['id'])
 
-
-
+      refute_equal original_school, updated_school
+      assert_equal '2', updated_school['uid']
+      assert_equal '2.0', updated_school['overweight_percentage']
+      assert_equal '2.0', updated_school['obese_percentage']
+      service.destroy_school(original_school['id'])
+    end
+  end
 end
 
