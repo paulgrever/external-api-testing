@@ -26,11 +26,15 @@ class SchoolistServiceTest < ActiveSupport::TestCase
   test '#create_school' do 
     VCR.use_cassette("schoolist_service_create_school") do
       school_params = { school: {uid: "1", overweight_percentage: "1", obese_percentage: "1"}}
-      school = SchoolistService.new.create_school(school_params)
+      school = ""
+      assert_difference("SchoolistService.new.schools.count", 1) do 
+        school = SchoolistService.new.create_school(school_params)
+      end
       assert_equal '1', school['uid']
       assert_equal '1.0', school['overweight_percentage']
       assert_equal '1.0', school['obese_percentage']
 
+    
       SchoolistService.new.destroy_school(school['uid'])
     end
   end
